@@ -160,9 +160,35 @@ select.fi{appearance:none;cursor:pointer}
 .btn-pago-no{flex:1;padding:13px;background:transparent;border:1.5px solid var(--red);border-radius:var(--r-sm);color:var(--red-l);font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif}
 .toast{position:fixed;bottom:76px;left:50%;transform:translateX(-50%) translateY(12px);background:var(--bg3);border:1px solid var(--gold-d);border-radius:30px;padding:9px 20px;font-size:13px;color:var(--text);z-index:200;opacity:0;transition:all .25s;pointer-events:none;white-space:nowrap}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* LOGIN */
+.login-screen{position:fixed;inset:0;background:var(--bg);z-index:1000;display:flex;align-items:center;justify-content:center;padding:24px}
+.login-box{width:100%;max-width:340px;text-align:center}
+.login-logo{font-family:'Cinzel',serif;font-size:28px;color:var(--gold);letter-spacing:4px;font-weight:700;margin-bottom:4px}
+.login-sub{font-size:11px;color:var(--dim);letter-spacing:3px;text-transform:uppercase;margin-bottom:40px}
+.login-lbl{display:block;font-size:10px;color:var(--dim);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;text-align:left}
+.login-inp{width:100%;background:var(--bg2);border:2px solid var(--gold-d);border-radius:var(--r-sm);color:var(--text);font-size:18px;padding:14px 16px;outline:none;font-family:'DM Sans',sans-serif;text-align:center;letter-spacing:3px;transition:border-color .2s;margin-bottom:16px}
+.login-inp:focus{border-color:var(--gold)}
+.login-btn{width:100%;background:var(--gold);border:none;border-radius:var(--r-sm);color:var(--bg);font-size:15px;font-weight:700;padding:14px;cursor:pointer;font-family:'Cinzel',serif;letter-spacing:2px;transition:background .15s}
+.login-btn:active{background:var(--gold-l)}
+.login-err{font-size:12px;color:var(--red-l);margin-top:10px;display:none}
+.login-err.on{display:block}
 </style>
 </head>
 <body>
+
+
+<div class="login-screen" id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">7MO SABOR</div>
+    <div class="login-sub">Estacionamiento</div>
+    <label class="login-lbl">Contraseña de acceso</label>
+    <input class="login-inp" id="loginInp" type="password" placeholder="••••••••"
+      autocomplete="off" onkeydown="if(event.key==='Enter')checkLogin()">
+    <button class="login-btn" onclick="checkLogin()">INGRESAR</button>
+    <div class="login-err" id="loginErr">Contraseña incorrecta</div>
+  </div>
+</div>
 
 <div class="hdr">
   <div class="hdr-row">
@@ -432,7 +458,7 @@ window.openCamSalida=openCamSalida; window.closeCamSal=closeCamSal; window.snapS
 // ── CLAUDE VISION ─────────────────────────────────────────────
 async function leerPatente(b64) {
   const resp = await fetch('https://api.anthropic.com/v1/messages', {
-    method:'POST', headers:{'Content-Type':'application/json'},
+    method:'POST', headers:{"Content-Type":"application/json","x-api-key":"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","anthropic-version":"2023-06-01","anthropic-dangerous-allow-browser":"true"},
     body: JSON.stringify({
       model:'claude-sonnet-4-20250514', max_tokens:60,
       messages:[{role:'user',content:[
@@ -708,6 +734,26 @@ function toast(msg) {
 }
 window.openM=openM; window.closeM=closeM; window.llamar=llamar; window.updStats=updStats;
 setInterval(()=>{ renderMini(); updStats(); if(document.getElementById('v-adentro').classList.contains('on')) renderInside(); }, 60000);
+
+// ── LOGIN ─────────────────────────────────────────────────────
+const PASS = '7mosabor2025';
+function checkLogin() {
+  const v = document.getElementById('loginInp').value;
+  if(v === PASS) {
+    document.getElementById('loginScreen').style.display = 'none';
+    sessionStorage.setItem('auth','ok');
+  } else {
+    document.getElementById('loginErr').classList.add('on');
+    document.getElementById('loginInp').value='';
+    setTimeout(()=>document.getElementById('loginErr').classList.remove('on'),2000);
+  }
+}
+if(sessionStorage.getItem('auth')==='ok') {
+  document.addEventListener('DOMContentLoaded',()=>{
+    document.getElementById('loginScreen').style.display='none';
+  });
+}
+
 </script>
 </body>
 </html>
