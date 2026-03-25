@@ -22,34 +22,27 @@
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;overflow:hidden}
 body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;display:flex;flex-direction:column}
-
-/* HEADER */
 .hdr{background:linear-gradient(180deg,var(--bg3),var(--bg2));border-bottom:1px solid var(--gold-d);padding:14px 18px 10px;flex-shrink:0;z-index:10}
 .hdr-row{display:flex;align-items:center;justify-content:space-between}
 .brand-name{font-family:'Cinzel',serif;font-size:17px;color:var(--gold);letter-spacing:3px;font-weight:700}
 .brand-sub{font-size:9px;color:var(--dim);letter-spacing:4px;text-transform:uppercase;margin-top:1px}
+.sync-dot{width:8px;height:8px;border-radius:50%;background:var(--dim);display:inline-block;margin-left:8px;vertical-align:middle}
+.sync-dot.ok{background:var(--green);box-shadow:0 0 6px var(--green)}
+.sync-dot.err{background:var(--red)}
 .hdr-stats{display:flex;gap:6px;margin-top:10px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
 .hdr-stats::-webkit-scrollbar{display:none}
 .chip{background:var(--surf);border:1px solid var(--border);border-radius:20px;padding:4px 12px;font-size:11px;color:var(--dim);white-space:nowrap;flex-shrink:0}
 .chip b{color:var(--gold-l);font-weight:600;margin-left:3px}
 .chip.gc b{color:var(--green-l)}.chip.rc b{color:var(--red-l)}.chip.bc b{color:var(--blue-l)}
-
-/* SCROLL */
 .scroll{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .scroll::-webkit-scrollbar{display:none}
 .pad{padding:16px 16px 100px}
-
-/* BOTTOM NAV */
 .bnav{position:fixed;bottom:0;left:0;right:0;background:var(--bg2);border-top:1px solid var(--border);display:flex;z-index:20;padding-bottom:env(safe-area-inset-bottom,0px)}
 .nb{flex:1;display:flex;flex-direction:column;align-items:center;padding:9px 0;cursor:pointer;border:none;background:transparent;color:var(--dim);font-size:9px;font-family:'DM Sans',sans-serif;letter-spacing:.5px;gap:3px;transition:color .15s;position:relative}
 .nb.on{color:var(--gold)}
 .nb svg{width:21px;height:21px}
 .nbadge{position:absolute;top:5px;right:calc(50% - 18px);background:var(--red-l);color:#fff;font-size:9px;font-weight:700;border-radius:10px;padding:1px 5px;min-width:16px;text-align:center;display:none}
-
-/* VIEWS */
 .view{display:none}.view.on{display:block}
-
-/* SEARCH CARD */
 .sc{background:linear-gradient(135deg,var(--surf2),var(--surf));border:1px solid var(--gold-d);border-radius:var(--r);padding:18px;margin-bottom:16px;box-shadow:0 6px 30px rgba(0,0,0,.5)}
 .card-lbl{font-family:'Cinzel',serif;font-size:10px;color:var(--gold);letter-spacing:3px;margin-bottom:12px}
 .inp-row{display:flex;gap:8px}
@@ -60,8 +53,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
 .btn-cam:active{background:var(--gold-x)}
 .btn-go{width:50px;background:var(--gold);border:none;border-radius:var(--r-sm);color:var(--bg);font-size:22px;font-weight:900;cursor:pointer;flex-shrink:0;transition:background .15s,transform .1s}
 .btn-go:active{background:var(--gold-l);transform:scale(.95)}
-
-/* CAM */
 .cam-wrap{display:none;margin-top:12px}.cam-wrap.on{display:block}
 #camVideo{width:100%;max-height:200px;object-fit:cover;display:block;border-radius:var(--r-sm)}
 .cam-frame-wrap{position:relative;border-radius:var(--r-sm);overflow:hidden;background:#000}
@@ -75,8 +66,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
 .spin{animation:spin .8s linear infinite;display:inline-block}
 @keyframes spin{to{transform:rotate(360deg)}}
 #camCanvas{display:none}
-
-/* RESULT */
 .res{margin-top:12px;border-radius:var(--r-sm);padding:16px;display:none;animation:fu .25s ease}
 .res.show{display:block}
 @keyframes fu{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
@@ -99,8 +88,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
 .rbtn.call{border-color:var(--red);color:var(--red)}.rbtn.call:active{background:rgba(231,76,60,.15)}
 .rbtn.neu{border-color:var(--dim);color:var(--dim)}.rbtn.neu:active{background:rgba(255,255,255,.05)}
 .rbtn.visit-in{border-color:var(--blue);color:var(--blue)}.rbtn.visit-in:active{background:rgba(52,152,219,.15)}
-
-/* INSIDE LIST */
 .sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
 .sec-ttl{font-family:'Cinzel',serif;font-size:10px;color:var(--gold);letter-spacing:3px;text-transform:uppercase}
 .in-card{background:var(--surf);border:1px solid var(--border);border-radius:var(--r-sm);padding:12px 14px;display:flex;align-items:center;gap:10px;margin-bottom:8px}
@@ -116,8 +103,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
 .btn-sal:active{background:#d35400}
 .empty-st{text-align:center;padding:36px 20px;color:var(--dim)}
 .empty-st .ei{font-size:42px;margin-bottom:10px}
-
-/* ABONADOS */
 .add-btn{background:var(--gold);border:none;border-radius:20px;color:var(--bg);font-size:11px;padding:5px 14px;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:700}
 .frow{display:flex;gap:6px;margin-bottom:12px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
 .frow::-webkit-scrollbar{display:none}
@@ -139,9 +124,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
 .ab-tog.mk{border-color:var(--green);color:var(--green)}.ab-tog.mk:active{background:rgba(39,174,96,.15)}
 .ab-tog.mv{border-color:var(--red);color:var(--red)}.ab-tog.mv:active{background:rgba(192,57,43,.15)}
 .ab-edit{background:transparent;border:1px solid var(--border);border-radius:6px;padding:5px 10px;font-size:11px;color:var(--dim);cursor:pointer;text-align:center}
-
-/* HISTORIAL */
-.hist-day{font-size:11px;color:var(--dim);letter-spacing:1px;text-transform:uppercase;margin:16px 0 8px;font-family:'Cinzel',serif}
 .hist-item{display:flex;align-items:center;gap:12px;padding:11px 14px;background:var(--surf);border:1px solid var(--border);border-radius:var(--r-sm);margin-bottom:6px}
 .hist-plate{font-family:'Cinzel',serif;font-size:14px;color:var(--gold);letter-spacing:2px}
 .hist-name{font-size:12px;color:var(--text);margin-top:2px}
@@ -153,8 +135,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
 .hist-total{background:var(--surf2);border:1px solid var(--gold-d);border-radius:var(--r-sm);padding:12px 16px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center}
 .hist-total-lbl{font-size:12px;color:var(--dim)}
 .hist-total-val{font-family:'Cinzel',serif;font-size:18px;color:var(--gold-l);font-weight:700}
-
-/* MODAL SALIDA VISITA */
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:100;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s}
 .overlay.on{opacity:1;pointer-events:all}
 .modal{background:var(--bg3);border:1px solid var(--gold-d);border-radius:20px 20px 0 0;padding:22px 18px 36px;width:100%;max-width:480px;max-height:88vh;overflow-y:auto;transform:translateY(24px);transition:transform .2s}
@@ -172,27 +152,21 @@ select.fi{appearance:none;cursor:pointer}
 .m-save{flex:2;background:var(--gold);border:none;border-radius:var(--r-sm);color:var(--bg);padding:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .15s}
 .m-save:active{background:var(--gold-l)}
 .m-del{flex:1;background:rgba(192,57,43,.1);border:1px solid var(--red);border-radius:var(--r-sm);color:var(--red);padding:12px;font-size:14px;cursor:pointer;font-family:'DM Sans',sans-serif}
-
-/* cobro highlight */
 .cobro-box{background:linear-gradient(135deg,var(--blue-bg),var(--surf));border:1.5px solid var(--blue);border-radius:var(--r-sm);padding:14px 16px;margin:12px 0;text-align:center}
 .cobro-amt{font-family:'Cinzel',serif;font-size:28px;color:var(--blue-l);font-weight:700}
 .cobro-lbl{font-size:12px;color:var(--dim);margin-top:2px}
 .pago-btns{display:flex;gap:8px;margin-top:14px}
-.btn-pago-si{flex:1;padding:13px;background:var(--green);border:none;border-radius:var(--r-sm);color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .15s}
-.btn-pago-si:active{background:var(--green-l)}
+.btn-pago-si{flex:1;padding:13px;background:var(--green);border:none;border-radius:var(--r-sm);color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif}
 .btn-pago-no{flex:1;padding:13px;background:transparent;border:1.5px solid var(--red);border-radius:var(--r-sm);color:var(--red-l);font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif}
-
-/* TOAST */
 .toast{position:fixed;bottom:76px;left:50%;transform:translateX(-50%) translateY(12px);background:var(--bg3);border:1px solid var(--gold-d);border-radius:30px;padding:9px 20px;font-size:13px;color:var(--text);z-index:200;opacity:0;transition:all .25s;pointer-events:none;white-space:nowrap}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <div class="hdr">
   <div class="hdr-row">
-    <div><div class="brand-name">7MO SABOR</div><div class="brand-sub">Estacionamiento</div></div>
+    <div><div class="brand-name">7MO SABOR <span class="sync-dot" id="syncDot"></span></div><div class="brand-sub">Estacionamiento · En línea</div></div>
   </div>
   <div class="hdr-stats">
     <div class="chip">Abonados<b id="s-ab">0</b></div>
@@ -204,8 +178,6 @@ select.fi{appearance:none;cursor:pointer}
 </div>
 
 <div class="scroll"><div class="pad">
-
-  <!-- ═══ CONSULTAR ═══ -->
   <div class="view on" id="v-consultar">
     <div class="sc">
       <div class="card-lbl">🔍 Consultar / Registrar</div>
@@ -213,23 +185,21 @@ select.fi{appearance:none;cursor:pointer}
         <input class="plate-inp" id="sInp" type="text" maxlength="6" placeholder="AB·CD·12"
           autocomplete="off" autocorrect="off" spellcheck="false"
           oninput="this.value=this.value.toUpperCase().replace(/[^A-Z0-9]/g,'')">
-        <button class="btn-cam" onclick="openCam('entrada')" title="Cámara">📷</button>
+        <button class="btn-cam" onclick="openCam()" title="Cámara">📷</button>
         <button class="btn-go" onclick="buscar()">›</button>
       </div>
-      <!-- Cámara -->
       <div class="cam-wrap" id="camWrap">
         <div class="cam-frame-wrap">
           <video id="camVideo" autoplay playsinline muted></video>
           <div class="cam-ov"><div class="cam-fr"></div></div>
         </div>
-        <div class="cam-btns" id="camBtns">
+        <div class="cam-btns">
           <button class="cam-snap" onclick="snapPhoto()">📸 Capturar patente</button>
           <button class="cam-x" onclick="closeCam()">✕ Cancelar</button>
         </div>
       </div>
       <canvas id="camCanvas" style="display:none"></canvas>
       <div class="cam-proc" id="camProc"><span class="spin">⟳</span> Leyendo patente con IA…</div>
-      <!-- Resultado -->
       <div class="res" id="resCard">
         <div class="res-top">
           <div class="res-icon" id="resIcon"></div>
@@ -239,20 +209,17 @@ select.fi{appearance:none;cursor:pointer}
         <div class="res-acts" id="resActs"></div>
       </div>
     </div>
-    <!-- Mini adentro -->
     <div id="miniWrap" style="display:none">
       <div class="sec-hdr"><div class="sec-ttl">🚗 Adentro ahora</div></div>
       <div id="miniList"></div>
     </div>
   </div>
 
-  <!-- ═══ ADENTRO ═══ -->
   <div class="view" id="v-adentro">
     <div class="sec-hdr"><div class="sec-ttl">🚗 Vehículos adentro</div></div>
     <div id="insideList"></div>
   </div>
 
-  <!-- ═══ ABONADOS ═══ -->
   <div class="view" id="v-abonados">
     <div class="sec-hdr"><div class="sec-ttl">👥 Abonados</div><button class="add-btn" onclick="openAdd()">+ Agregar</button></div>
     <input class="srch-inp" id="abSrch" type="text" placeholder="Buscar patente o nombre…" oninput="renderAb()">
@@ -265,31 +232,25 @@ select.fi{appearance:none;cursor:pointer}
     <div id="abList"></div>
   </div>
 
-  <!-- ═══ HISTORIAL ═══ -->
   <div class="view" id="v-hist">
     <div class="sec-hdr"><div class="sec-ttl">📋 Historial</div></div>
     <div id="histContent"></div>
   </div>
-
 </div></div>
 
-<!-- BOTTOM NAV -->
 <div class="bnav">
   <button class="nb on" id="nb-consultar" onclick="nav('consultar')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-    Consultar
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>Consultar
   </button>
   <button class="nb" id="nb-adentro" onclick="nav('adentro')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
     <span class="nbadge" id="badge-in"></span>Adentro
   </button>
   <button class="nb" id="nb-abonados" onclick="nav('abonados')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-    Abonados
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Abonados
   </button>
   <button class="nb" id="nb-hist" onclick="nav('hist')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-    Historial
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>Historial
   </button>
 </div>
 
@@ -302,8 +263,7 @@ select.fi{appearance:none;cursor:pointer}
     <div class="fg"><label class="fl">Teléfono (opcional)</label><input class="fi" id="fTel" type="tel" placeholder="+56 9 XXXX XXXX"></div>
     <div class="fg"><label class="fl">Espacio asignado (opcional)</label><input class="fi" id="fEsp" type="text" placeholder="Ej: E-05"></div>
     <div class="fg"><label class="fl">Estado de pago</label>
-      <select class="fi" id="fEst"><option value="pagado">✅ Al día</option><option value="vencido">❌ Vencido</option><option value="por-vencer">⚠️ Por vencer</option></select>
-    </div>
+      <select class="fi" id="fEst"><option value="pagado">✅ Al día</option><option value="vencido">❌ Vencido</option><option value="por-vencer">⚠️ Por vencer</option></select></div>
     <div class="fg"><label class="fl">Vence (mes/año)</label><input class="fi" id="fVen" type="month"></div>
     <div class="fg"><label class="fl">Notas (opcional)</label><input class="fi" id="fNot" type="text" placeholder="Ej: Camioneta blanca"></div>
     <div class="m-acts" id="mAbActs">
@@ -313,12 +273,11 @@ select.fi{appearance:none;cursor:pointer}
   </div>
 </div>
 
-<!-- MODAL COBRO SALIDA VISITA -->
+<!-- MODAL COBRO SALIDA -->
 <div class="overlay" id="mCobro">
   <div class="modal">
     <div class="modal-ttl">🚪 Registrar Salida</div>
     <div class="modal-sub" id="mCobroSub"></div>
-    <!-- Cam salida -->
     <div class="cam-wrap" id="camSalWrap">
       <div class="cam-frame-wrap">
         <video id="camSalVideo" autoplay playsinline muted></video>
@@ -330,269 +289,279 @@ select.fi{appearance:none;cursor:pointer}
       </div>
     </div>
     <canvas id="camSalCanvas" style="display:none"></canvas>
-    <div class="cam-proc" id="camSalProc"><span class="spin">⟳</span> Verificando patente…</div>
+    <div class="cam-proc" id="camSalProc"><span class="spin">⟳</span> Verificando…</div>
     <div id="cobroContent"></div>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
-<script>
-// ── STORAGE ─────────────────────────────────────────────────
-const KA='ab7v3', KM='mv7v3';
-const getAb=()=>{try{return JSON.parse(localStorage.getItem(KA))||[];}catch{return[]}};
-const saveAb=a=>localStorage.setItem(KA,JSON.stringify(a));
-const getMv=()=>{try{return JSON.parse(localStorage.getItem(KM))||[];}catch{return[]}};
-const saveMv=m=>localStorage.setItem(KM,JSON.stringify(m));
+<!-- FIREBASE SDK -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+import { getFirestore, collection, doc, setDoc, deleteDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
-// ── DEMO ─────────────────────────────────────────────────────
-function initDemo(){
-  if(getAb().length)return;
-  const d=new Date();
-  const mc=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
-  const mp=`${d.getFullYear()}-${String(d.getMonth()).padStart(2,'0')}`;
-  saveAb([
-    {id:1,patente:'BBCC12',nombre:'Carlos Muñoz',telefono:'+56912345678',espacio:'E-01',estado:'pagado',vencimiento:mc,notas:'Camioneta blanca'},
-    {id:2,patente:'FFGG34',nombre:'Ana Soto',telefono:'',espacio:'E-02',estado:'vencido',vencimiento:mp,notas:''},
-    {id:3,patente:'JJKK56',nombre:'Luis Pinto',telefono:'+56998765432',espacio:'E-03',estado:'pagado',vencimiento:mc,notas:'Auto rojo'},
-    {id:4,patente:'MMNN78',nombre:'Patricia Vega',telefono:'',espacio:'E-04',estado:'por-vencer',vencimiento:mc,notas:''},
-  ]);
+// ── CONFIGURACIÓN FIREBASE ────────────────────────────────────
+const firebaseConfig = {
+  apiKey: "AIzaSyAreK1F6Pf3V1Iq0KkrrKWs_UK9XIPIyzE",
+  authDomain: "estacionamiento-7mo.firebaseapp.com",
+  projectId: "estacionamiento-7mo",
+  storageBucket: "estacionamiento-7mo.firebasestorage.app",
+  messagingSenderId: "220735322344",
+  appId: "1:220735322344:web:b63fd82ba585a38219315d"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// ── ESTADO LOCAL (sincronizado desde Firebase) ────────────────
+let abonados = [];
+let movimientos = [];
+
+// ── CONEXIÓN TIEMPO REAL ──────────────────────────────────────
+const syncDot = document.getElementById('syncDot');
+
+onSnapshot(collection(db, 'abonados'), snap => {
+  abonados = snap.docs.map(d => ({...d.data(), _id: d.id}));
+  syncDot.className = 'sync-dot ok';
+  renderAb(); updStats();
+}, () => { syncDot.className = 'sync-dot err'; });
+
+onSnapshot(query(collection(db, 'movimientos'), orderBy('entrada', 'desc')), snap => {
+  movimientos = snap.docs.map(d => ({...d.data(), _id: d.id}));
+  renderMini(); updStats();
+  if(document.getElementById('v-adentro').classList.contains('on')) renderInside();
+  if(document.getElementById('v-hist').classList.contains('on')) renderHist();
+}, () => {});
+
+// ── HELPERS FIREBASE ──────────────────────────────────────────
+async function fbSetAb(ab) {
+  const id = ab._id || ab.patente;
+  await setDoc(doc(db, 'abonados', id), {...ab, _id: id});
+}
+async function fbDelAb(id) { await deleteDoc(doc(db, 'abonados', id)); }
+async function fbSetMv(mv) {
+  const id = mv._id || String(mv.entrada);
+  await setDoc(doc(db, 'movimientos', id), {...mv, _id: id});
 }
 
-// ── NAV ──────────────────────────────────────────────────────
-function nav(v){
+// ── GETTERS (usan estado local) ───────────────────────────────
+function getAb() { return abonados; }
+function getMv() { return movimientos; }
+
+// ── NAV ───────────────────────────────────────────────────────
+function nav(v) {
   document.querySelectorAll('.view').forEach(x=>x.classList.remove('on'));
   document.querySelectorAll('.nb').forEach(x=>x.classList.remove('on'));
   document.getElementById('v-'+v).classList.add('on');
   document.getElementById('nb-'+v).classList.add('on');
-  if(v==='adentro')renderInside();
-  if(v==='abonados')renderAb();
-  if(v==='hist')renderHist();
+  if(v==='adentro') renderInside();
+  if(v==='abonados') renderAb();
+  if(v==='hist') renderHist();
 }
+window.nav = nav;
 
-// ── CÁMARA ENTRADA ───────────────────────────────────────────
-let camStream=null, camMode='entrada';
-async function openCam(mode){
-  camMode=mode;
-  if(mode==='entrada'){
-    const w=document.getElementById('camWrap');
-    if(w.classList.contains('on')){closeCam();return;}
-    try{
-      camStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'},width:{ideal:1280}}});
-      document.getElementById('camVideo').srcObject=camStream;
-      w.classList.add('on');
-    }catch{toast('⚠️ No se pudo acceder a la cámara');}
-  }
+// ── CÁMARA ENTRADA ────────────────────────────────────────────
+let camStream = null;
+async function openCam() {
+  const w = document.getElementById('camWrap');
+  if(w.classList.contains('on')) { closeCam(); return; }
+  try {
+    camStream = await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'},width:{ideal:1280}}});
+    document.getElementById('camVideo').srcObject = camStream;
+    w.classList.add('on');
+  } catch { toast('⚠️ No se pudo acceder a la cámara'); }
 }
-function closeCam(){
-  if(camStream){camStream.getTracks().forEach(t=>t.stop());camStream=null;}
+function closeCam() {
+  if(camStream) { camStream.getTracks().forEach(t=>t.stop()); camStream=null; }
   document.getElementById('camWrap').classList.remove('on');
   document.getElementById('camProc').classList.remove('on');
 }
-async function snapPhoto(){
-  const video=document.getElementById('camVideo');
-  const canvas=document.getElementById('camCanvas');
-  canvas.width=video.videoWidth;canvas.height=video.videoHeight;
+async function snapPhoto() {
+  const video = document.getElementById('camVideo');
+  const canvas = document.getElementById('camCanvas');
+  canvas.width=video.videoWidth; canvas.height=video.videoHeight;
   canvas.getContext('2d').drawImage(video,0,0);
-  const b64=canvas.toDataURL('image/jpeg',.85).split(',')[1];
+  const b64 = canvas.toDataURL('image/jpeg',.85).split(',')[1];
   closeCam();
   document.getElementById('camProc').classList.add('on');
-  try{
-    const pat=await leerPatente(b64);
+  try {
+    const pat = await leerPatente(b64);
     document.getElementById('camProc').classList.remove('on');
-    if(!pat){toast('⚠️ No se detectó patente — ingresa manualmente');return;}
-    document.getElementById('sInp').value=pat;
+    if(!pat) { toast('⚠️ No se detectó patente — ingresa manualmente'); return; }
+    document.getElementById('sInp').value = pat;
     toast('📷 Patente leída: '+pat);
-    setTimeout(buscar,300);
-  }catch{document.getElementById('camProc').classList.remove('on');toast('⚠️ Error al procesar imagen');}
+    setTimeout(buscar, 300);
+  } catch { document.getElementById('camProc').classList.remove('on'); toast('⚠️ Error al procesar imagen'); }
 }
+window.openCam=openCam; window.closeCam=closeCam; window.snapPhoto=snapPhoto;
 
-// ── CÁMARA SALIDA ────────────────────────────────────────────
-let camSalStream=null, pendingSalidaId=null;
-async function openCamSalida(mvId){
-  pendingSalidaId=mvId;
-  try{
-    camSalStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'},width:{ideal:1280}}});
-    document.getElementById('camSalVideo').srcObject=camSalStream;
+// ── CÁMARA SALIDA ─────────────────────────────────────────────
+let camSalStream = null, pendingSalidaId = null;
+async function openCamSalida(id) {
+  pendingSalidaId = id;
+  try {
+    camSalStream = await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'},width:{ideal:1280}}});
+    document.getElementById('camSalVideo').srcObject = camSalStream;
     document.getElementById('camSalWrap').classList.add('on');
-  }catch{toast('⚠️ No se pudo acceder a la cámara');}
+  } catch { toast('⚠️ No se pudo acceder a la cámara'); }
 }
-function closeCamSal(){
-  if(camSalStream){camSalStream.getTracks().forEach(t=>t.stop());camSalStream=null;}
+function closeCamSal() {
+  if(camSalStream) { camSalStream.getTracks().forEach(t=>t.stop()); camSalStream=null; }
   document.getElementById('camSalWrap').classList.remove('on');
   document.getElementById('camSalProc').classList.remove('on');
 }
-async function snapSalida(){
-  const video=document.getElementById('camSalVideo');
-  const canvas=document.getElementById('camSalCanvas');
-  canvas.width=video.videoWidth;canvas.height=video.videoHeight;
+async function snapSalida() {
+  const video = document.getElementById('camSalVideo');
+  const canvas = document.getElementById('camSalCanvas');
+  canvas.width=video.videoWidth; canvas.height=video.videoHeight;
   canvas.getContext('2d').drawImage(video,0,0);
-  const b64=canvas.toDataURL('image/jpeg',.85).split(',')[1];
+  const b64 = canvas.toDataURL('image/jpeg',.85).split(',')[1];
   closeCamSal();
   document.getElementById('camSalProc').classList.add('on');
-  try{
-    const pat=await leerPatente(b64);
+  try {
+    const pat = await leerPatente(b64);
     document.getElementById('camSalProc').classList.remove('on');
-    const mv=getMv().find(m=>m.id===pendingSalidaId);
-    if(!pat){toast('⚠️ No se pudo leer — confirma manualmente');return;}
-    if(mv && pat===mv.patente){
-      toast('✅ Patente confirmada: '+pat);
-    }else{
-      toast('⚠️ Patente leída: '+pat+' — verifica');
-    }
-  }catch{document.getElementById('camSalProc').classList.remove('on');toast('⚠️ Error');}
+    const mv = getMv().find(m=>m._id===pendingSalidaId);
+    if(!pat) { toast('⚠️ No se pudo leer — confirma manualmente'); return; }
+    toast(mv&&pat===mv.patente ? '✅ Patente confirmada: '+pat : '⚠️ Leída: '+pat+' — verifica');
+  } catch { document.getElementById('camSalProc').classList.remove('on'); toast('⚠️ Error'); }
 }
+window.openCamSalida=openCamSalida; window.closeCamSal=closeCamSal; window.snapSalida=snapSalida;
 
-// ── API CLAUDE VISION ─────────────────────────────────────────
-async function leerPatente(b64){
-  const resp=await fetch('https://api.anthropic.com/v1/messages',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({
-      model:'claude-sonnet-4-20250514',max_tokens:60,
+// ── CLAUDE VISION ─────────────────────────────────────────────
+async function leerPatente(b64) {
+  const resp = await fetch('https://api.anthropic.com/v1/messages', {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({
+      model:'claude-sonnet-4-20250514', max_tokens:60,
       messages:[{role:'user',content:[
         {type:'image',source:{type:'base64',media_type:'image/jpeg',data:b64}},
         {type:'text',text:'Extrae SOLO el número de patente vehicular chilena. Responde únicamente con los caracteres alfanuméricos sin espacios ni guiones (ej: BBCC12). Si no hay patente responde: NO'}
       ]}]
     })
   });
-  const data=await resp.json();
-  const txt=(data.content?.[0]?.text||'').trim().toUpperCase().replace(/[^A-Z0-9]/g,'');
-  return(!txt||txt==='NO'||txt.length<4)?null:txt;
+  const data = await resp.json();
+  const txt = (data.content?.[0]?.text||'').trim().toUpperCase().replace(/[^A-Z0-9]/g,'');
+  return (!txt||txt==='NO'||txt.length<4) ? null : txt;
 }
 
 // ── BUSCAR ────────────────────────────────────────────────────
-const TARIFA_VISITA=500;
-let resPatente='';
-function buscar(){
-  const raw=document.getElementById('sInp').value.trim().toUpperCase().replace(/[^A-Z0-9]/g,'');
-  if(!raw||raw.length<4){toast('Ingresa una patente válida');return;}
-  resPatente=raw;
-  const ab=getAb().find(a=>a.patente===raw);
-  const mv=getMv();
-  const adentro=mv.find(m=>!m.salida&&m.patente===raw);
-
-  const card=document.getElementById('resCard');
-  card.className='res show';
-  const icon=document.getElementById('resIcon');
-  const ttl=document.getElementById('resTtl');
-  const plate=document.getElementById('resPlate');
-  const det=document.getElementById('resDet');
+const TARIFA = 500;
+function buscar() {
+  const raw = document.getElementById('sInp').value.trim().toUpperCase().replace(/[^A-Z0-9]/g,'');
+  if(!raw||raw.length<4) { toast('Ingresa una patente válida'); return; }
+  const ab = getAb().find(a=>a.patente===raw);
+  const adentro = getMv().find(m=>!m.salida&&m.patente===raw);
+  const card = document.getElementById('resCard');
+  card.className = 'res show';
+  const icon=document.getElementById('resIcon'), ttl=document.getElementById('resTtl');
+  const plate=document.getElementById('resPlate'), det=document.getElementById('resDet');
   const acts=document.getElementById('resActs');
-  plate.textContent=raw;
+  plate.textContent = raw;
 
-  if(!ab){
-    // VISITA DE PASO
-    if(adentro){
-      card.classList.add('visita');
-      icon.textContent='🚗';ttl.textContent='Visita — Ya está adentro';
+  if(!ab) {
+    card.classList.add('visita');
+    if(adentro) {
+      icon.textContent='🚗'; ttl.textContent='Visita — Ya está adentro';
       det.innerHTML=`<div>Entró: <strong>${new Date(adentro.entrada).toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit'})}</strong></div><div>Tiempo: <strong>${dur(adentro.entrada,null)}</strong></div>`;
-      acts.innerHTML=`<button class="rbtn exit" onclick="iniciarSalidaVisita(${adentro.id})">🚪 Registrar salida</button>`;
-    }else{
-      card.classList.add('visita');
-      icon.textContent='🚗';ttl.textContent='Visita de paso';
-      det.innerHTML=`<div>No es abonado mensual</div><div>Tarifa: <strong>$${TARIFA_VISITA.toLocaleString('es-CL')} por visita</strong></div>`;
+      acts.innerHTML=`<button class="rbtn exit" onclick="iniciarSalidaVisita('${adentro._id}')">🚪 Registrar salida</button>`;
+    } else {
+      icon.textContent='🚗'; ttl.textContent='Visita de paso';
+      det.innerHTML=`<div>No es abonado mensual</div><div>Tarifa: <strong>$${TARIFA.toLocaleString('es-CL')} por visita</strong></div>`;
       acts.innerHTML=`<button class="rbtn visit-in" onclick="regEntrada('${raw}','visita','Visitante')">✅ Registrar entrada</button><button class="rbtn neu" onclick="openAdd('${raw}')">➕ Agregar como abonado</button>`;
     }
-  } else if(ab.estado==='pagado'||ab.estado==='por-vencer'){
-    const cls=ab.estado==='pagado'?'ok':'warn';
-    card.classList.add(cls);
-    if(adentro){
-      icon.textContent='🚗';ttl.textContent='Ya está adentro';
+  } else if(ab.estado==='pagado'||ab.estado==='por-vencer') {
+    card.classList.add(ab.estado==='pagado'?'ok':'warn');
+    if(adentro) {
+      icon.textContent='🚗'; ttl.textContent='Ya está adentro';
       det.innerHTML=`<div>Nombre: <strong>${ab.nombre}</strong></div><div>Entró: <strong>${new Date(adentro.entrada).toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit'})}</strong></div><div>Tiempo: <strong>${dur(adentro.entrada,null)}</strong></div>`;
-      acts.innerHTML=`<button class="rbtn exit" onclick="regSalidaAbonado(${adentro.id})">🚪 Registrar salida</button>`;
-    }else{
+      acts.innerHTML=`<button class="rbtn exit" onclick="regSalidaAbonado('${adentro._id}')">🚪 Registrar salida</button>`;
+    } else {
       icon.textContent=ab.estado==='pagado'?'✅':'⚠️';
       ttl.textContent=ab.estado==='pagado'?'Al día — puede entrar':'Por vencer — puede entrar';
       det.innerHTML=`<div>Nombre: <strong>${ab.nombre}</strong></div>${ab.espacio?`<div>Espacio: <strong>${ab.espacio}</strong></div>`:''}<div>Vence: <strong>${fmes(ab.vencimiento)}</strong></div>${ab.notas?`<div>Nota: <strong>${ab.notas}</strong></div>`:''}`;
       acts.innerHTML=`<button class="rbtn entry" onclick="regEntrada('${raw}','abonado','${ab.nombre.replace(/'/g,"\\'")}')">✅ Registrar entrada</button>`;
     }
-  } else{
+  } else {
     card.classList.add('bad');
-    icon.textContent='❌';ttl.textContent='VENCIDO — No ha pagado';
+    icon.textContent='❌'; ttl.textContent='VENCIDO — No ha pagado';
     det.innerHTML=`<div>Nombre: <strong>${ab.nombre}</strong></div>${ab.telefono?`<div>Tel: <strong>${ab.telefono}</strong></div>`:''}<div>Vencido desde: <strong>${fmes(ab.vencimiento)}</strong></div>`;
-    const btnCall=ab.telefono?`<button class="rbtn call" onclick="llamar('${ab.telefono}')">📞 Cobrar $20.000</button>`:'';
-    acts.innerHTML=btnCall+`<button class="rbtn neu" onclick="openEdit(${ab.id})">✏️ Editar</button>`;
+    acts.innerHTML=(ab.telefono?`<button class="rbtn call" onclick="llamar('${ab.telefono}')">📞 Cobrar $20.000</button>`:'')+`<button class="rbtn neu" onclick="openEdit('${ab._id}')">✏️ Editar</button>`;
   }
 }
+window.buscar=buscar;
 
 // ── MOVIMIENTOS ───────────────────────────────────────────────
-function regEntrada(pat,tipo,nombre){
-  const mv=getMv();
-  mv.push({id:Date.now(),patente:pat,nombre,tipo,estado:tipo==='abonado'?'pagado':'visita',entrada:Date.now(),fecha:new Date().toLocaleDateString('es-CL'),salida:null,pagado:tipo==='abonado'?true:null});
-  saveMv(mv);updStats();renderMini();toast('✅ Entrada registrada — '+pat);buscar();
+async function regEntrada(pat, tipo, nombre) {
+  const id = Date.now().toString();
+  const mv = {_id:id, patente:pat, nombre, tipo, estado:tipo==='abonado'?'pagado':'visita', entrada:Date.now(), fecha:new Date().toLocaleDateString('es-CL'), salida:null, pagado:tipo==='abonado'?true:null};
+  await fbSetMv(mv);
+  toast('✅ Entrada registrada — '+pat);
+  setTimeout(buscar, 500);
 }
-
-function regSalidaAbonado(id){
-  const mv=getMv();
-  const i=mv.findIndex(m=>m.id===id);if(i<0)return;
-  mv[i].salida=Date.now();mv[i].pagado=true;
-  saveMv(mv);updStats();renderMini();toast('🚪 Salida registrada — '+dur(mv[i].entrada,mv[i].salida));buscar();
+async function regSalidaAbonado(id) {
+  const mv = getMv().find(m=>m._id===id); if(!mv) return;
+  await fbSetMv({...mv, salida:Date.now(), pagado:true});
+  toast('🚪 Salida registrada — '+dur(mv.entrada, Date.now()));
+  setTimeout(buscar, 500);
 }
-
-// Salida visita: mostrar modal de cobro
-function iniciarSalidaVisita(id){
-  const mv=getMv().find(m=>m.id===id);if(!mv)return;
-  pendingSalidaId=id;
-  document.getElementById('mCobroSub').textContent='Patente: '+mv.patente+' · '+dur(mv.entrada,null)+' adentro';
+function iniciarSalidaVisita(id) {
+  const mv = getMv().find(m=>m._id===id); if(!mv) return;
+  pendingSalidaId = id;
+  document.getElementById('mCobroSub').textContent = 'Patente: '+mv.patente+' · '+dur(mv.entrada,null)+' adentro';
   document.getElementById('camSalWrap').classList.remove('on');
   document.getElementById('camSalProc').classList.remove('on');
   document.getElementById('cobroContent').innerHTML=`
-    <div class="cobro-box">
-      <div class="cobro-amt">$${TARIFA_VISITA.toLocaleString('es-CL')}</div>
-      <div class="cobro-lbl">Tarifa por visita</div>
-    </div>
-    <button style="width:100%;padding:8px;background:transparent;border:1px solid var(--dim);border-radius:8px;color:var(--dim);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;margin-bottom:4px" onclick="openCamSalida(${id})">📷 Confirmar patente con cámara</button>
+    <div class="cobro-box"><div class="cobro-amt">$${TARIFA.toLocaleString('es-CL')}</div><div class="cobro-lbl">Tarifa por visita</div></div>
+    <button style="width:100%;padding:8px;background:transparent;border:1px solid var(--dim);border-radius:8px;color:var(--dim);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;margin-bottom:4px" onclick="openCamSalida('${id}')">📷 Confirmar patente con cámara</button>
     <div class="pago-btns">
-      <button class="btn-pago-si" onclick="confirmarSalidaVisita(${id},true)">✅ Ya pagó</button>
-      <button class="btn-pago-no" onclick="confirmarSalidaVisita(${id},false)">❌ No pagó</button>
-    </div>
-  `;
+      <button class="btn-pago-si" onclick="confirmarSalidaVisita('${id}',true)">✅ Ya pagó</button>
+      <button class="btn-pago-no" onclick="confirmarSalidaVisita('${id}',false)">❌ No pagó</button>
+    </div>`;
   openM('mCobro');
 }
-
-function confirmarSalidaVisita(id,pagado){
+async function confirmarSalidaVisita(id, pagado) {
   closeCamSal();
-  const mv=getMv();
-  const i=mv.findIndex(m=>m.id===id);if(i<0)return;
-  mv[i].salida=Date.now();mv[i].pagado=pagado;
-  saveMv(mv);closeM('mCobro');updStats();renderMini();
-  toast(pagado?'✅ Salida registrada — $'+TARIFA_VISITA.toLocaleString('es-CL')+' cobrado':'🚪 Salida registrada — pendiente cobro');
-  buscar();
+  const mv = getMv().find(m=>m._id===id); if(!mv) return;
+  await fbSetMv({...mv, salida:Date.now(), pagado});
+  closeM('mCobro');
+  toast(pagado?'✅ $'+TARIFA.toLocaleString('es-CL')+' cobrado':'🚪 Salida — pendiente cobro');
+  setTimeout(buscar, 500);
 }
-
-function regSalidaById(id){
-  // desde lista Adentro
-  const mv=getMv();
-  const m=mv.find(x=>x.id===id);if(!m)return;
-  if(m.tipo==='visita'){iniciarSalidaVisita(id);}
-  else{regSalidaAbonado(id);}
+async function regSalidaById(id) {
+  const mv = getMv().find(m=>m._id===id); if(!mv) return;
+  if(mv.tipo==='visita') iniciarSalidaVisita(id);
+  else regSalidaAbonado(id);
 }
+window.regEntrada=regEntrada; window.regSalidaAbonado=regSalidaAbonado;
+window.iniciarSalidaVisita=iniciarSalidaVisita; window.confirmarSalidaVisita=confirmarSalidaVisita;
+window.regSalidaById=regSalidaById;
 
 // ── RENDER ADENTRO ────────────────────────────────────────────
-function renderInside(){
-  const mv=getMv().filter(m=>!m.salida);
-  const el=document.getElementById('insideList');
-  if(!mv.length){el.innerHTML='<div class="empty-st"><div class="ei">🅿️</div>No hay vehículos adentro</div>';return;}
-  el.innerHTML=mv.map(m=>`
+function renderInside() {
+  const mv = getMv().filter(m=>!m.salida);
+  const el = document.getElementById('insideList');
+  if(!mv.length) { el.innerHTML='<div class="empty-st"><div class="ei">🅿️</div>No hay vehículos adentro</div>'; return; }
+  el.innerHTML = mv.map(m=>`
     <div class="in-card">
       <div class="in-left">
         <div class="in-plate">${m.patente}</div>
         <div class="in-name">${m.nombre}</div>
         <div class="in-meta">Entró ${new Date(m.entrada).toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit'})}</div>
-        <span class="in-tipo ${m.tipo==='abonado'?'tipo-ab':'tipo-vis'}">${m.tipo==='abonado'?'Abonado':'Visita $'+TARIFA_VISITA.toLocaleString('es-CL')}</span>
+        <span class="in-tipo ${m.tipo==='abonado'?'tipo-ab':'tipo-vis'}">${m.tipo==='abonado'?'Abonado':'Visita $'+TARIFA.toLocaleString('es-CL')}</span>
       </div>
       <span class="in-dur">${dur(m.entrada,null)}</span>
-      <button class="btn-sal" onclick="regSalidaById(${m.id})">🚪 Salida</button>
+      <button class="btn-sal" onclick="regSalidaById('${m._id}')">🚪 Salida</button>
     </div>`).join('');
 }
-function renderMini(){
-  const mv=getMv().filter(m=>!m.salida);
-  const w=document.getElementById('miniWrap');
-  const el=document.getElementById('miniList');
-  if(!mv.length){w.style.display='none';return;}
+function renderMini() {
+  const mv = getMv().filter(m=>!m.salida);
+  const w = document.getElementById('miniWrap');
+  const el = document.getElementById('miniList');
+  if(!mv.length) { w.style.display='none'; return; }
   w.style.display='block';
-  el.innerHTML=mv.slice(0,3).map(m=>`
+  el.innerHTML = mv.slice(0,3).map(m=>`
     <div class="in-card" style="margin-bottom:6px">
       <div class="in-left">
         <div class="in-plate">${m.patente}</div>
@@ -600,63 +569,45 @@ function renderMini(){
         <span class="in-tipo ${m.tipo==='abonado'?'tipo-ab':'tipo-vis'}">${m.tipo==='abonado'?'Abonado':'Visita'}</span>
       </div>
       <span class="in-dur">${dur(m.entrada,null)}</span>
-      <button class="btn-sal" onclick="regSalidaById(${m.id})">🚪 Salida</button>
+      <button class="btn-sal" onclick="regSalidaById('${m._id}')">🚪 Salida</button>
     </div>`).join('');
-  if(mv.length>3)el.innerHTML+=`<div style="font-size:12px;color:var(--dim);text-align:center;padding:8px">+${mv.length-3} más — ver Adentro</div>`;
+  if(mv.length>3) el.innerHTML+=`<div style="font-size:12px;color:var(--dim);text-align:center;padding:8px">+${mv.length-3} más — ver Adentro</div>`;
 }
 
 // ── HISTORIAL ─────────────────────────────────────────────────
-function renderHist(){
-  const mv=getMv().filter(m=>m.salida).reverse();
-  const el=document.getElementById('histContent');
-  if(!mv.length){el.innerHTML='<div class="empty-st"><div class="ei">📋</div>Sin movimientos completados aún</div>';return;}
-
-  // agrupar por fecha
-  const grupos={};
-  mv.forEach(m=>{grupos[m.fecha]=grupos[m.fecha]||[];grupos[m.fecha].push(m);});
-
-  const fechas=Object.keys(grupos).sort((a,b)=>{
-    const pa=a.split('/').reverse().join(''),pb=b.split('/').reverse().join('');return pb.localeCompare(pa);
+function renderHist() {
+  const mv = getMv().filter(m=>m.salida);
+  const el = document.getElementById('histContent');
+  if(!mv.length) { el.innerHTML='<div class="empty-st"><div class="ei">📋</div>Sin movimientos completados aún</div>'; return; }
+  const grupos = {};
+  mv.forEach(m=>{ grupos[m.fecha]=grupos[m.fecha]||[]; grupos[m.fecha].push(m); });
+  const fechas = Object.keys(grupos).sort((a,b)=>{
+    const pa=a.split('/').reverse().join(''), pb=b.split('/').reverse().join(''); return pb.localeCompare(pa);
   });
-
   let html='';
   fechas.forEach(fecha=>{
     const items=grupos[fecha];
-    const rec=items.filter(m=>m.tipo==='visita'&&m.pagado).length*TARIFA_VISITA;
-    html+=`
-      <div class="hist-total">
-        <div><div class="hist-total-lbl">${fecha}</div><div style="font-size:11px;color:var(--dim);margin-top:2px">${items.length} movimiento${items.length>1?'s':''}</div></div>
-        <div style="text-align:right"><div class="hist-total-lbl">Recaudado visitas</div><div class="hist-total-val">$${rec.toLocaleString('es-CL')}</div></div>
-      </div>`;
+    const rec=items.filter(m=>m.tipo==='visita'&&m.pagado).length*TARIFA;
+    html+=`<div class="hist-total"><div><div class="hist-total-lbl">${fecha}</div><div style="font-size:11px;color:var(--dim);margin-top:2px">${items.length} movimiento${items.length>1?'s':''}</div></div><div style="text-align:right"><div class="hist-total-lbl">Recaudado visitas</div><div class="hist-total-val">$${rec.toLocaleString('es-CL')}</div></div></div>`;
     items.forEach(m=>{
       const es=m.tipo==='abonado'?'hb-ok':m.pagado?'hb-vis':'hb-nopag';
-      const el2=m.tipo==='abonado'?'Abonado':m.pagado?'Visita pagó $'+TARIFA_VISITA.toLocaleString('es-CL'):'Visita NO pagó';
-      html+=`<div class="hist-item">
-        <div style="flex:1;min-width:0">
-          <div class="hist-plate">${m.patente}</div>
-          <div class="hist-name">${m.nombre}</div>
-          <div class="hist-meta">${new Date(m.entrada).toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit'})} → ${new Date(m.salida).toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit'})}</div>
-        </div>
-        <div class="hist-right">
-          <span class="hbadge ${es}">${el2}</span>
-          <div class="hist-dur">${dur(m.entrada,m.salida)}</div>
-        </div>
-      </div>`;
+      const lb=m.tipo==='abonado'?'Abonado':m.pagado?'Visita pagó $'+TARIFA.toLocaleString('es-CL'):'Visita NO pagó';
+      html+=`<div class="hist-item"><div style="flex:1;min-width:0"><div class="hist-plate">${m.patente}</div><div class="hist-name">${m.nombre}</div><div class="hist-meta">${new Date(m.entrada).toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit'})} → ${new Date(m.salida).toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit'})}</div></div><div class="hist-right"><span class="hbadge ${es}">${lb}</span><div class="hist-dur">${dur(m.entrada,m.salida)}</div></div></div>`;
     });
   });
   el.innerHTML=html;
 }
 
 // ── ABONADOS ──────────────────────────────────────────────────
-let filtroAb='todos',editId=null;
-function setF(el){document.querySelectorAll('.ftab').forEach(t=>t.classList.remove('on'));el.classList.add('on');filtroAb=el.dataset.f;renderAb();}
-function renderAb(){
+let filtroAb='todos', editId=null;
+function setF(el) { document.querySelectorAll('.ftab').forEach(t=>t.classList.remove('on')); el.classList.add('on'); filtroAb=el.dataset.f; renderAb(); }
+function renderAb() {
   const q=(document.getElementById('abSrch')?.value||'').toLowerCase();
   let list=getAb();
-  if(filtroAb!=='todos')list=list.filter(a=>a.estado===filtroAb);
-  if(q)list=list.filter(a=>a.patente.toLowerCase().includes(q)||a.nombre.toLowerCase().includes(q));
+  if(filtroAb!=='todos') list=list.filter(a=>a.estado===filtroAb);
+  if(q) list=list.filter(a=>a.patente.toLowerCase().includes(q)||a.nombre.toLowerCase().includes(q));
   const el=document.getElementById('abList');
-  if(!list.length){el.innerHTML='<div class="empty-st"><div class="ei">🚗</div>Sin abonados en esta categoría</div>';return;}
+  if(!list.length) { el.innerHTML='<div class="empty-st"><div class="ei">🚗</div>Sin abonados en esta categoría</div>'; return; }
   el.innerHTML=list.map(a=>`
     <div class="ab-card ${a.estado}">
       <div class="ab-dot"></div>
@@ -667,35 +618,34 @@ function renderAb(){
       </div>
       <div class="ab-acts">
         ${a.estado!=='pagado'
-          ?`<button class="ab-tog mk" onclick="toggleAb(${a.id},'pagado')">✅ Pagó</button>`
-          :`<button class="ab-tog mv" onclick="toggleAb(${a.id},'vencido')">❌ Vencer</button>`}
-        <button class="ab-edit" onclick="openEdit(${a.id})">✏️</button>
+          ?`<button class="ab-tog mk" onclick="toggleAb('${a._id}','pagado')">✅ Pagó</button>`
+          :`<button class="ab-tog mv" onclick="toggleAb('${a._id}','vencido')">❌ Vencer</button>`}
+        <button class="ab-edit" onclick="openEdit('${a._id}')">✏️</button>
       </div>
     </div>`).join('');
 }
-function toggleAb(id,st){
-  const ab=getAb();const i=ab.findIndex(a=>a.id===id);if(i<0)return;
-  ab[i].estado=st;
-  if(st==='pagado'){const d=new Date();ab[i].vencimiento=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;}
-  saveAb(ab);renderAb();updStats();toast(st==='pagado'?'✅ Marcado como pagado':'❌ Marcado como vencido');
+async function toggleAb(id, st) {
+  const a=getAb().find(x=>x._id===id); if(!a) return;
+  const updated={...a, estado:st};
+  if(st==='pagado') { const d=new Date(); updated.vencimiento=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`; }
+  await fbSetAb(updated);
+  toast(st==='pagado'?'✅ Marcado como pagado':'❌ Marcado como vencido');
 }
+window.setF=setF; window.toggleAb=toggleAb; window.renderAb=renderAb;
 
-// ── MODAL ABONADO ──────────────────────────────────────────────
-function openAdd(pre=''){
+// ── MODAL ABONADO ─────────────────────────────────────────────
+function openAdd(pre='') {
   editId=null;
   document.getElementById('mAbTtl').textContent='Nuevo Abonado';
   document.getElementById('fPat').value=pre;
-  document.getElementById('fNom').value='';
-  document.getElementById('fTel').value='';
-  document.getElementById('fEsp').value='';
+  ['fNom','fTel','fEsp','fNot'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('fEst').value='pagado';
-  const d=new Date();document.getElementById('fVen').value=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
-  document.getElementById('fNot').value='';
-  document.getElementById('mAbActs').innerHTML=`<button class="m-cancel" onclick="closeM('mAb')">Cancelar</button><button class="m-save" onclick="saveAb2()">Guardar</button>`;
+  const d=new Date(); document.getElementById('fVen').value=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+  document.getElementById('mAbActs').innerHTML=`<button class="m-cancel" onclick="closeM('mAb')">Cancelar</button><button class="m-save" onclick="saveAb()">Guardar</button>`;
   openM('mAb');
 }
-function openEdit(id){
-  const a=getAb().find(x=>x.id===id);if(!a)return;
+function openEdit(id) {
+  const a=getAb().find(x=>x._id===id); if(!a) return;
   editId=id;
   document.getElementById('mAbTtl').textContent='Editar Abonado';
   document.getElementById('fPat').value=a.patente;
@@ -705,45 +655,45 @@ function openEdit(id){
   document.getElementById('fEst').value=a.estado;
   document.getElementById('fVen').value=a.vencimiento;
   document.getElementById('fNot').value=a.notas||'';
-  document.getElementById('mAbActs').innerHTML=`<button class="m-del" onclick="delAb(${id})">Eliminar</button><button class="m-save" onclick="saveAb2()">Guardar</button>`;
+  document.getElementById('mAbActs').innerHTML=`<button class="m-del" onclick="delAb('${id}')">Eliminar</button><button class="m-save" onclick="saveAb()">Guardar</button>`;
   openM('mAb');
 }
-function saveAb2(){
+async function saveAb() {
   const pat=document.getElementById('fPat').value.trim().toUpperCase().replace(/[^A-Z0-9]/g,'');
   const nom=document.getElementById('fNom').value.trim();
-  if(!pat||pat.length<4){toast('Patente inválida');return;}
-  if(!nom){toast('Ingresa el nombre');return;}
-  const ab=getAb();
+  if(!pat||pat.length<4) { toast('Patente inválida'); return; }
+  if(!nom) { toast('Ingresa el nombre'); return; }
   const data={patente:pat,nombre:nom,telefono:document.getElementById('fTel').value.trim(),espacio:document.getElementById('fEsp').value.trim(),estado:document.getElementById('fEst').value,vencimiento:document.getElementById('fVen').value,notas:document.getElementById('fNot').value.trim()};
-  if(editId){const i=ab.findIndex(a=>a.id===editId);ab[i]={...ab[i],...data};}
-  else{ab.push({id:Date.now(),...data});}
-  saveAb(ab);closeM('mAb');renderAb();updStats();toast(editId?'✅ Actualizado':'✅ Abonado agregado');
+  if(editId) { const a=getAb().find(x=>x._id===editId); await fbSetAb({...a,...data}); }
+  else { await fbSetAb({...data, _id:pat}); }
+  closeM('mAb'); toast(editId?'✅ Actualizado':'✅ Abonado agregado');
 }
-function delAb(id){
-  if(!confirm('¿Eliminar este abonado?'))return;
-  saveAb(getAb().filter(a=>a.id!==id));closeM('mAb');renderAb();updStats();toast('🗑️ Eliminado');
+async function delAb(id) {
+  if(!confirm('¿Eliminar este abonado?')) return;
+  await fbDelAb(id); closeM('mAb'); toast('🗑️ Eliminado');
 }
+window.openAdd=openAdd; window.openEdit=openEdit; window.saveAb=saveAb; window.delAb=delAb;
 
 // ── UTILS ─────────────────────────────────────────────────────
-function openM(id){document.getElementById(id).classList.add('on');}
-function closeM(id){document.getElementById(id).classList.remove('on');}
-document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o){closeCamSal();o.classList.remove('on');}}));
-document.getElementById('sInp').addEventListener('keydown',e=>{if(e.key==='Enter')buscar();});
-function llamar(tel){window.open('tel:'+tel);}
-function fmes(v){
-  if(!v)return'—';const[y,m]=v.split('-');
-  return['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'][parseInt(m)-1]+' '+y;
+function openM(id) { document.getElementById(id).classList.add('on'); }
+function closeM(id) { document.getElementById(id).classList.remove('on'); }
+document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{ if(e.target===o){closeCamSal();o.classList.remove('on');} }));
+document.getElementById('sInp').addEventListener('keydown',e=>{ if(e.key==='Enter') buscar(); });
+function llamar(tel) { window.open('tel:'+tel); }
+function fmes(v) {
+  if(!v) return '—'; const[y,m]=v.split('-');
+  return ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'][parseInt(m)-1]+' '+y;
 }
-function dur(t1,t2){
+function dur(t1,t2) {
   const diff=Math.floor(((t2||Date.now())-t1)/60000);
-  if(diff<1)return'<1 min';if(diff<60)return diff+' min';
+  if(diff<1) return '<1 min'; if(diff<60) return diff+' min';
   return Math.floor(diff/60)+'h '+String(diff%60).padStart(2,'0')+'min';
 }
-function updStats(){
-  const ab=getAb(),mv=getMv();
+function updStats() {
+  const ab=getAb(), mv=getMv();
   const adentro=mv.filter(m=>!m.salida).length;
   const hoy=new Date().toLocaleDateString('es-CL');
-  const rec=mv.filter(m=>m.salida&&m.fecha===hoy&&m.tipo==='visita'&&m.pagado).length*TARIFA_VISITA;
+  const rec=mv.filter(m=>m.salida&&m.fecha===hoy&&m.tipo==='visita'&&m.pagado).length*TARIFA;
   document.getElementById('s-ab').textContent=ab.length;
   document.getElementById('s-ok').textContent=ab.filter(a=>a.estado==='pagado').length;
   document.getElementById('s-bad').textContent=ab.filter(a=>a.estado==='vencido').length;
@@ -752,17 +702,12 @@ function updStats(){
   const b=document.getElementById('badge-in');
   if(adentro>0){b.textContent=adentro;b.style.display='block';}else{b.style.display='none';}
 }
-function toast(msg){
-  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('on');
-  clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),2800);
+function toast(msg) {
+  const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('on');
+  clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove('on'),2800);
 }
-setInterval(()=>{
-  if(document.getElementById('v-adentro').classList.contains('on'))renderInside();
-  renderMini();updStats();
-},60000);
-
-// ── INIT ───────────────────────────────────────────────────────
-initDemo();updStats();renderMini();
+window.openM=openM; window.closeM=closeM; window.llamar=llamar; window.updStats=updStats;
+setInterval(()=>{ renderMini(); updStats(); if(document.getElementById('v-adentro').classList.contains('on')) renderInside(); }, 60000);
 </script>
 </body>
 </html>
