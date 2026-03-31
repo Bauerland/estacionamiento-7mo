@@ -292,6 +292,15 @@ select.fi{appearance:none;cursor:pointer}
     <div class="fg"><label class="fl">Nombre</label><input class="fi" id="fNom" type="text" placeholder="Nombre del cliente"></div>
     <div class="fg"><label class="fl">Teléfono (opcional)</label><input class="fi" id="fTel" type="tel" placeholder="+56 9 XXXX XXXX"></div>
     <div class="fg"><label class="fl">Espacio asignado (opcional)</label><input class="fi" id="fEsp" type="text" placeholder="Ej: E-05"></div>
+    <div class="fg"><label class="fl">Visitas permitidas por día</label>
+      <select class="fi" id="fVisitas">
+        <option value="0">Sin límite</option>
+        <option value="1">1 vez al día</option>
+        <option value="2">2 veces al día</option>
+        <option value="3">3 veces al día</option>
+      </select></div>
+    <div class="fg"><label class="fl">Tarifa mensual ($)</label>
+      <input class="fi" id="fTarifa" type="number" placeholder="20000" min="0"></div>
     <div class="fg"><label class="fl">Estado de pago</label>
       <select class="fi" id="fEst"><option value="pagado">✅ Al día</option><option value="vencido">❌ Vencido</option><option value="por-vencer">⚠️ Por vencer</option></select></div>
     <div class="fg"><label class="fl">Vence (mes/año)</label><input class="fi" id="fVen" type="month"></div>
@@ -423,7 +432,8 @@ async function openCam() {
   const w = document.getElementById('camWrap');
   if(w.classList.contains('on')) { closeCam(); return; }
   try {
-    camStream = await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'},width:{ideal:1280}}});
+    camStream = await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'},width:{ideal:1920},height:{ideal:1080}}});
+    try { const track=camStream.getVideoTracks()[0]; await track.applyConstraints({advanced:[{torch:true}]}); } catch(e){}
     document.getElementById('camVideo').srcObject = camStream;
     w.classList.add('on');
   } catch { toast('⚠️ No se pudo acceder a la cámara'); }
@@ -438,7 +448,7 @@ async function snapPhoto() {
   const canvas = document.getElementById('camCanvas');
   canvas.width=video.videoWidth; canvas.height=video.videoHeight;
   canvas.getContext('2d').drawImage(video,0,0);
-  const b64 = canvas.toDataURL('image/jpeg',.85).split(',')[1];
+  const b64 = canvas.toDataURL('image/jpeg',0.97).split(',')[1];
   closeCam();
   document.getElementById('camProc').classList.add('on');
   try {
@@ -457,7 +467,8 @@ let camSalStream = null, pendingSalidaId = null;
 async function openCamSalida(id) {
   pendingSalidaId = id;
   try {
-    camSalStream = await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'},width:{ideal:1280}}});
+    camSalStream = await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'},width:{ideal:1920},height:{ideal:1080}}});
+    try { const track=camSalStream.getVideoTracks()[0]; await track.applyConstraints({advanced:[{torch:true}]}); } catch(e){}
     document.getElementById('camSalVideo').srcObject = camSalStream;
     document.getElementById('camSalWrap').classList.add('on');
   } catch { toast('⚠️ No se pudo acceder a la cámara'); }
@@ -472,7 +483,7 @@ async function snapSalida() {
   const canvas = document.getElementById('camSalCanvas');
   canvas.width=video.videoWidth; canvas.height=video.videoHeight;
   canvas.getContext('2d').drawImage(video,0,0);
-  const b64 = canvas.toDataURL('image/jpeg',.85).split(',')[1];
+  const b64 = canvas.toDataURL('image/jpeg',0.97).split(',')[1];
   closeCamSal();
   document.getElementById('camSalProc').classList.add('on');
   try {
@@ -493,7 +504,7 @@ async function leerPatente(b64) {
       model:'claude-sonnet-4-20250514', max_tokens:60,
       messages:[{role:'user',content:[
         {type:'image',source:{type:'base64',media_type:'image/jpeg',data:b64}},
-        {type:'text',text:'Extrae SOLO el número de patente vehicular chilena. Responde únicamente con los caracteres alfanuméricos sin espacios ni guiones (ej: BBCC12). Si no hay patente responde: NO'}
+        {type:'text',text:'Eres un lector de patentes de autos chilenas. Mira la imagen completa y encuentra cualquier patente vehicular. Las patentes chilenas nuevas tienen formato BBCC12 (2 letras, 2 letras, 2 números). Las antiguas tienen AA1234 (2 letras, 4 números). Responde ÚNICAMENTE con los caracteres de la patente sin espacios ni guiones. Si no encuentras ninguna patente responde: NO'}
       ]}]
     })
   });
@@ -537,7 +548,17 @@ function buscar() {
       icon.textContent=ab.estado==='pagado'?'✅':'⚠️';
       ttl.textContent=ab.estado==='pagado'?'Al día — puede entrar':'Por vencer — puede entrar';
       det.innerHTML=`<div>Nombre: <strong>${ab.nombre}</strong></div>${ab.espacio?`<div>Espacio: <strong>${ab.espacio}</strong></div>`:''}<div>Vence: <strong>${fmes(ab.vencimiento)}</strong></div>${ab.notas?`<div>Nota: <strong>${ab.notas}</strong></div>`:''}`;
-      acts.innerHTML=`<button class="rbtn entry" onclick="regEntrada('${raw}','abonado','${ab.nombre.replace(/'/g,"\\'")}')">✅ Registrar entrada</button>`;
+      // Check daily visit limit
+  const hoyIngs = getMv().filter(m=>m.patente===raw&&m.fecha===new Date().toLocaleDateString('es-CL'));
+  const limiteOk = !ab.visitas || hoyIngs.length < ab.visitas;
+  if(!limiteOk) {
+    card.classList.add('bad');
+    icon.textContent='🚫'; ttl.textContent='Límite diario alcanzado';
+    det.innerHTML=`<div>Nombre: <strong>${ab.nombre}</strong></div><div>Ya usó sus <strong>${ab.visitas}</strong> visita${ab.visitas>1?'s':''} de hoy</div>`;
+    acts.innerHTML='';
+    return;
+  }
+  acts.innerHTML=`<button class="rbtn entry" onclick="regEntrada('${raw}','abonado','${ab.nombre.replace(/'/g,"\'")}')">✅ Registrar entrada</button>`;
     }
   } else {
     card.classList.add('bad');
@@ -711,6 +732,8 @@ function openEdit(id) {
   document.getElementById('fEst').value=a.estado;
   document.getElementById('fVen').value=a.vencimiento;
   document.getElementById('fNot').value=a.notas||'';
+  document.getElementById('fVisitas').value=a.visitas||0;
+  document.getElementById('fTarifa').value=a.tarifa||20000;
   document.getElementById('mAbActs').innerHTML=`<button class="m-del" onclick="delAb('${id}')">Eliminar</button><button class="m-save" onclick="saveAb()">Guardar</button>`;
   openM('mAb');
 }
@@ -719,7 +742,7 @@ async function saveAb() {
   const nom=document.getElementById('fNom').value.trim();
   if(!pat||pat.length<4) { toast('Patente inválida'); return; }
   if(!nom) { toast('Ingresa el nombre'); return; }
-  const data={patente:pat,nombre:nom,telefono:document.getElementById('fTel').value.trim(),espacio:document.getElementById('fEsp').value.trim(),estado:document.getElementById('fEst').value,vencimiento:document.getElementById('fVen').value,notas:document.getElementById('fNot').value.trim()};
+  const data={patente:pat,nombre:nom,telefono:document.getElementById('fTel').value.trim(),espacio:document.getElementById('fEsp').value.trim(),visitas:parseInt(document.getElementById('fVisitas').value)||0,tarifa:parseInt(document.getElementById('fTarifa').value)||20000,estado:document.getElementById('fEst').value,vencimiento:document.getElementById('fVen').value,notas:document.getElementById('fNot').value.trim()};
   if(editId) { const a=getAb().find(x=>x._id===editId); await fbSetAb({...a,...data}); }
   else { await fbSetAb({...data, _id:pat}); }
   closeM('mAb'); toast(editId?'✅ Actualizado':'✅ Abonado agregado');
