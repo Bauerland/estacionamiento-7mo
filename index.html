@@ -224,7 +224,7 @@ select.fi{appearance:none;cursor:pointer}
           <div class="cam-ov"><div class="cam-fr"></div></div>
         </div>
         <div class="cam-btns">
-          <button class="cam-snap" onclick="snapPhoto()">📸 Capturar patente</button>
+          <button class="cam-snap" id="btnSnap" onclick="snapWithCountdown()">📸 Capturar patente</button>
           <button class="cam-x" onclick="closeCam()">✕ Cancelar</button>
         </div>
       </div>
@@ -445,10 +445,20 @@ function closeCam() {
 }
 async function snapPhoto() {
   const video = document.getElementById('camVideo');
+  // Wait for video to fully stabilize
+  await new Promise(r => setTimeout(r, 500));
   const canvas = document.getElementById('camCanvas');
-  canvas.width=video.videoWidth; canvas.height=video.videoHeight;
-  canvas.getContext('2d').drawImage(video,0,0);
-  const b64 = canvas.toDataURL('image/jpeg',0.97).split(',')[1];
+  canvas.width = video.videoWidth || 1280;
+  canvas.height = video.videoHeight || 720;
+  const ctx = canvas.getContext('2d');
+  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+  // Check if frame is valid (not black)
+  const pixel = ctx.getImageData(canvas.width/2, canvas.height/2, 1, 1).data;
+  if(pixel[0]===0 && pixel[1]===0 && pixel[2]===0) {
+    await new Promise(r => setTimeout(r, 800));
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+  }
+  const b64 = canvas.toDataURL('image/jpeg', 0.97).split(',')[1];
   closeCam();
   document.getElementById('camProc').classList.add('on');
   try {
@@ -458,9 +468,17 @@ async function snapPhoto() {
     document.getElementById('sInp').value = pat;
     toast('📷 Patente leída: '+pat);
     setTimeout(buscar, 300);
-  } catch { document.getElementById('camProc').classList.remove('on'); toast('⚠️ Error al procesar imagen'); }
+  } catch(e) { document.getElementById('camProc').classList.remove('on'); toast('⚠️ Error al procesar imagen'); }
 }
-window.openCam=openCam; window.closeCam=closeCam; window.snapPhoto=snapPhoto;
+async function snapWithCountdown() {
+  const btn = document.getElementById('btnSnap');
+  btn.disabled = true;
+  btn.textContent = '⏳ Capturando...';
+  await snapPhoto();
+  btn.disabled = false;
+  btn.textContent = '📸 Capturar patente';
+}
+window.openCam=openCam; window.closeCam=closeCam; window.snapPhoto=snapPhoto; window.snapWithCountdown=snapWithCountdown;
 
 // ── CÁMARA SALIDA ─────────────────────────────────────────────
 let camSalStream = null, pendingSalidaId = null;
