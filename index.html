@@ -487,8 +487,8 @@ window.openCamSalida=openCamSalida; window.closeCamSal=closeCamSal; window.snapS
 
 // ── CLAUDE VISION ─────────────────────────────────────────────
 async function leerPatente(b64) {
-  const resp = await fetch('https://api.anthropic.com/v1/messages', {
-    method:'POST', headers:{"Content-Type":"application/json","x-api-key":"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","anthropic-version":"2023-06-01","anthropic-dangerous-allow-browser":"true"},
+  const resp = await fetch('https://proxy-anthropic.kilazozl.workers.dev', {
+    method:'POST', headers:{"Content-Type":"application/json"},
     body: JSON.stringify({
       model:'claude-sonnet-4-20250514', max_tokens:60,
       messages:[{role:'user',content:[
