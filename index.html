@@ -196,7 +196,7 @@ select.fi{appearance:none;cursor:pointer}
 
 <div class="hdr">
   <div class="hdr-row">
-    <div><div class="brand-name">7MO SABOR <span class="sync-dot" id="syncDot"></span></div><div class="brand-sub">Estacionamiento · <span id="verLabel">v11.0</span></div></div>
+    <div><div class="brand-name">7MO SABOR <span class="sync-dot" id="syncDot"></span></div><div class="brand-sub">Estacionamiento · <span id="verLabel">v12.0</span></div></div>
   </div>
   <div class="hdr-stats">
     <div class="chip">Abonados<b id="s-ab">0</b></div>
@@ -215,21 +215,13 @@ select.fi{appearance:none;cursor:pointer}
         <input class="plate-inp" id="sInp" type="text" maxlength="6" placeholder="AB·CD·12"
           autocomplete="off" autocorrect="off" spellcheck="false"
           oninput="this.value=this.value.toUpperCase().replace(/[^A-Z0-9]/g,'')">
-        <button class="btn-cam" onclick="openCam()" title="Cámara">📷</button>
+        <label class="btn-cam" style="cursor:pointer;display:flex;align-items:center;justify-content:center" title="Sacar foto">
+  📷<input type="file" accept="image/*" capture="environment" style="display:none" onchange="handlePhoto(this)">
+</label>
         <button class="btn-go" onclick="buscar()">›</button>
       </div>
-      <div class="cam-wrap" id="camWrap">
-        <div class="cam-frame-wrap">
-          <video id="camVideo" autoplay playsinline muted></video>
-          <div class="cam-ov"><div class="cam-fr"></div></div>
-        </div>
-        <div class="cam-btns">
-          <button class="cam-snap" id="btnSnap" onclick="snapWithCountdown()">📸 Capturar patente</button>
-          <button class="cam-x" onclick="closeCam()">✕ Cancelar</button>
-        </div>
-      </div>
       <canvas id="camCanvas" style="display:none"></canvas>
-      <div class="cam-proc" id="camProc"><span class="spin">⟳</span> Leyendo patente con IA…</div>
+      <div class="cam-proc" id="camProc" style="display:none;align-items:center;justify-content:center;gap:8px;padding:12px;background:var(--surf);border-radius:var(--r-sm);margin-top:8px;font-size:13px;color:var(--gold)"><span class="spin">⟳</span> Leyendo patente con IA…</div>
       <div class="res" id="resCard">
         <div class="res-top">
           <div class="res-icon" id="resIcon"></div>
@@ -317,18 +309,8 @@ select.fi{appearance:none;cursor:pointer}
   <div class="modal">
     <div class="modal-ttl">🚪 Registrar Salida</div>
     <div class="modal-sub" id="mCobroSub"></div>
-    <div class="cam-wrap" id="camSalWrap">
-      <div class="cam-frame-wrap">
-        <video id="camSalVideo" autoplay playsinline muted></video>
-        <div class="cam-ov"><div class="cam-fr"></div></div>
-      </div>
-      <div class="cam-btns">
-        <button class="cam-snap" onclick="snapSalida()">📸 Confirmar con foto</button>
-        <button class="cam-x" onclick="closeCamSal()">✕</button>
-      </div>
-    </div>
     <canvas id="camSalCanvas" style="display:none"></canvas>
-    <div class="cam-proc" id="camSalProc"><span class="spin">⟳</span> Verificando…</div>
+    <div id="camSalProc" style="display:none;padding:10px;text-align:center;color:var(--gold);font-size:13px"><span class="spin">⟳</span> Verificando…</div>
     <div id="cobroContent"></div>
   </div>
 </div>
@@ -426,59 +408,27 @@ function nav(v) {
 }
 window.nav = nav;
 
-// ── CÁMARA ENTRADA ────────────────────────────────────────────
-let camStream = null;
-async function openCam() {
-  const w = document.getElementById('camWrap');
-  if(w.classList.contains('on')) { closeCam(); return; }
+// ── CÁMARA NATIVA ────────────────────────────────────────────
+async function handlePhoto(input) {
+  const file = input.files[0];
+  if(!file) return;
+  const proc = document.getElementById('camProc');
+  proc.style.display = 'flex';
   try {
-    camStream = await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'},width:{ideal:1920},height:{ideal:1080}}});
-    try { const track=camStream.getVideoTracks()[0]; await track.applyConstraints({advanced:[{torch:true}]}); } catch(e){}
-    document.getElementById('camVideo').srcObject = camStream;
-    w.classList.add('on');
-  } catch { toast('⚠️ No se pudo acceder a la cámara'); }
-}
-function closeCam() {
-  if(camStream) { camStream.getTracks().forEach(t=>t.stop()); camStream=null; }
-  document.getElementById('camWrap').classList.remove('on');
-  document.getElementById('camProc').classList.remove('on');
-}
-async function snapPhoto() {
-  const video = document.getElementById('camVideo');
-  // Wait for video to fully stabilize
-  await new Promise(r => setTimeout(r, 500));
-  const canvas = document.getElementById('camCanvas');
-  canvas.width = video.videoWidth || 1280;
-  canvas.height = video.videoHeight || 720;
-  const ctx = canvas.getContext('2d');
-  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-  // Check if frame is valid (not black)
-  const pixel = ctx.getImageData(canvas.width/2, canvas.height/2, 1, 1).data;
-  if(pixel[0]===0 && pixel[1]===0 && pixel[2]===0) {
-    await new Promise(r => setTimeout(r, 800));
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-  }
-  const b64 = canvas.toDataURL('image/jpeg', 0.97).split(',')[1];
-  closeCam();
-  document.getElementById('camProc').classList.add('on');
-  try {
+    const b64 = await new Promise((res, rej) => {
+      const reader = new FileReader();
+      reader.onload = e => res(e.target.result.split(',')[1]);
+      reader.onerror = rej;
+      reader.readAsDataURL(file);
+    });
     const pat = await leerPatente(b64);
-    document.getElementById('camProc').classList.remove('on');
-    if(!pat) { toast('⚠️ No se detectó patente — ingresa manualmente'); return; }
-    document.getElementById('sInp').value = pat;
-    toast('📷 Patente leída: '+pat);
-    setTimeout(buscar, 300);
-  } catch(e) { document.getElementById('camProc').classList.remove('on'); toast('⚠️ Error al procesar imagen'); }
+    proc.style.display = 'none';
+    if(!pat) { toast('⚠️ No se detectó patente — ingresa manualmente'); }
+    else { document.getElementById('sInp').value = pat; toast('📷 Patente leída: '+pat); setTimeout(buscar, 300); }
+  } catch(e) { proc.style.display = 'none'; toast('⚠️ Error al procesar imagen'); }
+  input.value = '';
 }
-async function snapWithCountdown() {
-  const btn = document.getElementById('btnSnap');
-  btn.disabled = true;
-  btn.textContent = '⏳ Capturando...';
-  await snapPhoto();
-  btn.disabled = false;
-  btn.textContent = '📸 Capturar patente';
-}
-window.openCam=openCam; window.closeCam=closeCam; window.snapPhoto=snapPhoto; window.snapWithCountdown=snapWithCountdown;
+window.handlePhoto=handlePhoto;
 
 // ── CÁMARA SALIDA ─────────────────────────────────────────────
 let camSalStream = null, pendingSalidaId = null;
@@ -609,7 +559,7 @@ function iniciarSalidaVisita(id) {
   document.getElementById('camSalProc').classList.remove('on');
   document.getElementById('cobroContent').innerHTML=`
     <div class="cobro-box"><div class="cobro-amt">$${TARIFA.toLocaleString('es-CL')}</div><div class="cobro-lbl">Tarifa por visita</div></div>
-    <button style="width:100%;padding:8px;background:transparent;border:1px solid var(--dim);border-radius:8px;color:var(--dim);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;margin-bottom:4px" onclick="openCamSalida('${id}')">📷 Confirmar patente con cámara</button>
+    <label style="width:100%;padding:8px;background:transparent;border:1px solid var(--dim);border-radius:8px;color:var(--dim);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;margin-bottom:4px;display:block;text-align:center;box-sizing:border-box">📷 Confirmar patente con cámara<input type="file" accept="image/*" capture="environment" style="display:none" onchange="handlePhotoSalida(this,'${id}')"></label>
     <div class="pago-btns">
       <button class="btn-pago-si" onclick="confirmarSalidaVisita('${id}',true)">✅ Ya pagó</button>
       <button class="btn-pago-no" onclick="confirmarSalidaVisita('${id}',false)">❌ No pagó</button>
