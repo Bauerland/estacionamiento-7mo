@@ -200,7 +200,7 @@ select.fi{appearance:none;cursor:pointer}
 
 <div class="hdr">
   <div class="hdr-row">
-    <div><div class="brand-name">7MO SABOR <span class="sync-dot" id="syncDot"></span></div><div class="brand-sub">Estacionamiento · <span id="verLabel">v15.0</span></div></div>
+    <div><div class="brand-name">7MO SABOR <span class="sync-dot" id="syncDot"></span></div><div class="brand-sub">Estacionamiento · <span id="verLabel">v16.0</span></div></div>
     <button onclick="cerrarSesion()" style="background:transparent;border:1px solid var(--dim);border-radius:20px;color:var(--dim);font-size:11px;padding:4px 12px;cursor:pointer;font-family:'DM Sans',sans-serif">Salir</button>
   </div>
   <div class="hdr-stats">
@@ -376,6 +376,17 @@ const syncDot = document.getElementById('syncDot');
 onSnapshot(collection(db, 'abonados'), snap => {
   abonados = snap.docs.map(d => ({...d.data(), _id: d.id}));
   syncDot.className = 'sync-dot ok';
+  // Auto-expire: check if "por vencer" should now be "vencido"
+  const hoy = new Date();
+  const mesActual = `${hoy.getFullYear()}-${String(hoy.getMonth()+1).padStart(2,'0')}`;
+  abonados.forEach(async ab => {
+    if(ab.estado === 'por-vencer' && ab.vencimiento && ab.vencimiento < mesActual) {
+      await fbSetAb({...ab, estado: 'vencido'});
+    }
+    if(ab.estado === 'pagado' && ab.vencimiento && ab.vencimiento < mesActual) {
+      await fbSetAb({...ab, estado: 'vencido'});
+    }
+  });
   renderAb(); updStats();
 }, () => { syncDot.className = 'sync-dot err'; });
 
@@ -463,8 +474,7 @@ async function openCamSalida(id) {
 }
 function closeCamSal() {
   if(camSalStream) { camSalStream.getTracks().forEach(t=>t.stop()); camSalStream=null; }
-  document.getElementById('camSalWrap').classList.remove('on');
-  document.getElementById('camSalProc').classList.remove('on');
+  // cam sal elements removed in v12
 }
 async function snapSalida() {
   const video = document.getElementById('camSalVideo');
@@ -569,14 +579,13 @@ async function regSalidaAbonado(id) {
   const mv = getMv().find(m=>m._id===id); if(!mv) return;
   await fbSetMv({...mv, salida:Date.now(), pagado:true});
   toast('🚪 Salida registrada — '+dur(mv.entrada, Date.now()));
-  setTimeout(buscar, 500);
+  setTimeout(()=>{ renderInside(); renderMini(); updStats(); buscar(); }, 500);
 }
 function iniciarSalidaVisita(id) {
   const mv = getMv().find(m=>m._id===id); if(!mv) return;
   pendingSalidaId = id;
   document.getElementById('mCobroSub').textContent = 'Patente: '+mv.patente+' · '+dur(mv.entrada,null)+' adentro';
-  document.getElementById('camSalWrap').classList.remove('on');
-  document.getElementById('camSalProc').classList.remove('on');
+  // cam sal elements removed in v12
   document.getElementById('cobroContent').innerHTML=`
     <div class="cobro-box"><div class="cobro-amt">$${TARIFA.toLocaleString('es-CL')}</div><div class="cobro-lbl">Tarifa por visita</div></div>
     <label style="width:100%;padding:8px;background:transparent;border:1px solid var(--dim);border-radius:8px;color:var(--dim);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;margin-bottom:4px;display:block;text-align:center;box-sizing:border-box">📷 Confirmar patente con cámara<input type="file" accept="image/*" capture="environment" style="display:none" onchange="handlePhotoSalida(this,'${id}')"></label>
@@ -592,7 +601,7 @@ async function confirmarSalidaVisita(id, pagado) {
   await fbSetMv({...mv, salida:Date.now(), pagado});
   closeM('mCobro');
   toast(pagado?'✅ $'+TARIFA.toLocaleString('es-CL')+' cobrado':'🚪 Salida — pendiente cobro');
-  setTimeout(buscar, 500);
+  setTimeout(()=>{ renderInside(); renderMini(); updStats(); buscar(); }, 500);
 }
 async function regSalidaById(id) {
   const mv = getMv().find(m=>m._id===id); if(!mv) return;
