@@ -182,6 +182,10 @@ select.fi{appearance:none;cursor:pointer}
   <div class="login-box">
     <div class="login-logo">7MO SABOR</div>
     <div class="login-sub">Estacionamiento</div>
+    <button class="login-btn" id="btnBio" onclick="loginBiometrico()" style="background:var(--surf2);border:1.5px solid var(--gold-d);color:var(--gold);margin-bottom:16px;display:none">
+      🔐 Entrar con huella / Face ID
+    </button>
+    <div style="font-size:11px;color:var(--dim);text-align:center;margin-bottom:14px" id="divO" style="display:none">— o ingresa tu contraseña —</div>
     <label class="login-lbl">Contraseña de acceso</label>
     <div style="position:relative">
       <input class="login-inp" id="loginInp" type="password" placeholder="••••••••"
@@ -196,7 +200,8 @@ select.fi{appearance:none;cursor:pointer}
 
 <div class="hdr">
   <div class="hdr-row">
-    <div><div class="brand-name">7MO SABOR <span class="sync-dot" id="syncDot"></span></div><div class="brand-sub">Estacionamiento · <span id="verLabel">v13.0</span></div></div>
+    <div><div class="brand-name">7MO SABOR <span class="sync-dot" id="syncDot"></span></div><div class="brand-sub">Estacionamiento · <span id="verLabel">v15.0</span></div></div>
+    <button onclick="cerrarSesion()" style="background:transparent;border:1px solid var(--dim);border-radius:20px;color:var(--dim);font-size:11px;padding:4px 12px;cursor:pointer;font-family:'DM Sans',sans-serif">Salir</button>
   </div>
   <div class="hdr-stats">
     <div class="chip">Abonados<b id="s-ab">0</b></div>
@@ -330,14 +335,14 @@ function checkLogin() {
   const v = document.getElementById('loginInp').value;
   if(v === PASS) {
     document.getElementById('loginScreen').style.display = 'none';
-    sessionStorage.setItem('auth','ok');
+    localStorage.setItem('auth','ok');
   } else {
     document.getElementById('loginErr').classList.add('on');
     document.getElementById('loginInp').value = '';
     setTimeout(()=>document.getElementById('loginErr').classList.remove('on'), 2000);
   }
 }
-if(sessionStorage.getItem('auth') === 'ok') {
+if(localStorage.getItem('auth') === 'ok') {
   document.addEventListener('DOMContentLoaded', ()=>{
     document.getElementById('loginScreen').style.display = 'none';
   });
