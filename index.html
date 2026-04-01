@@ -196,7 +196,7 @@ select.fi{appearance:none;cursor:pointer}
 
 <div class="hdr">
   <div class="hdr-row">
-    <div><div class="brand-name">7MO SABOR <span class="sync-dot" id="syncDot"></span></div><div class="brand-sub">Estacionamiento · <span id="verLabel">v12.0</span></div></div>
+    <div><div class="brand-name">7MO SABOR <span class="sync-dot" id="syncDot"></span></div><div class="brand-sub">Estacionamiento · <span id="verLabel">v13.0</span></div></div>
   </div>
   <div class="hdr-stats">
     <div class="chip">Abonados<b id="s-ab">0</b></div>
@@ -415,18 +415,33 @@ async function handlePhoto(input) {
   const proc = document.getElementById('camProc');
   proc.style.display = 'flex';
   try {
-    const b64 = await new Promise((res, rej) => {
-      const reader = new FileReader();
-      reader.onload = e => res(e.target.result.split(',')[1]);
-      reader.onerror = rej;
-      reader.readAsDataURL(file);
-    });
+    // Resize image to max 800px before sending
+    const b64 = await resizeImage(file, 800);
     const pat = await leerPatente(b64);
     proc.style.display = 'none';
     if(!pat) { toast('⚠️ No se detectó patente — ingresa manualmente'); }
     else { document.getElementById('sInp').value = pat; toast('📷 Patente leída: '+pat); setTimeout(buscar, 300); }
-  } catch(e) { proc.style.display = 'none'; toast('⚠️ Error al procesar imagen'); }
+  } catch(e) { console.error(e); proc.style.display = 'none'; toast('⚠️ Error: '+e.message); }
   input.value = '';
+}
+
+function resizeImage(file, maxWidth) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      const scale = Math.min(1, maxWidth / img.width);
+      const w = Math.round(img.width * scale);
+      const h = Math.round(img.height * scale);
+      const canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+      resolve(canvas.toDataURL('image/jpeg', 0.85).split(',')[1]);
+    };
+    img.onerror = reject;
+    img.src = url;
+  });
 }
 window.handlePhoto=handlePhoto;
 
